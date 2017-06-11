@@ -1,20 +1,22 @@
 module Leap exposing (..)
 
+type Year = LeapYear | NonLeapYear
+
+toYear : Int -> Year
+toYear year =
+  if divisibleByFourHundred year then
+    LeapYear
+  else if (divisibleByFour year) && not (divisibleByHundred year) then
+    LeapYear
+  else
+    NonLeapYear
+
+
 isLeapYear : Int -> Bool
 isLeapYear year =
-  let
-    response =
-    if divisibleByFourHundred year then
-      True
-    else if divisibleByHundred year then
-      False
-    else if divisibleByFour year then
-      True
-    else
-      False
-  in
-    response
-
+  case toYear year of
+    LeapYear -> True
+    NonLeapYear -> False
 
 
 divisibleByFour : Int -> Bool
